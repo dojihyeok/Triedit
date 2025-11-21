@@ -1,6 +1,42 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const isKorean = pathname?.startsWith('/ko');
+
+  const toggleLanguage = (lang: 'en' | 'ko') => {
+    setIsLangOpen(false);
+    if (lang === 'en') {
+      if (pathname?.startsWith('/ko')) {
+        const newPath = pathname.replace('/ko', '') || '/';
+        router.push(newPath);
+      }
+    } else {
+      if (!pathname?.startsWith('/ko')) {
+        const newPath = `/ko${pathname === '/' ? '' : pathname}`;
+        router.push(newPath);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsLangOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <nav style={{
       borderBottom: '1px solid var(--border)',
@@ -15,29 +51,93 @@ export default function Navbar() {
         alignItems: 'center',
         justifyContent: 'space-between'
       }}>
-        <Link href="/" style={{
+        <Link href={isKorean ? "/ko" : "/"} style={{
           fontSize: '1.5rem',
           fontWeight: '800',
           color: 'var(--primary)',
-          letterSpacing: '-0.03em'
+          letterSpacing: '-0.03em',
+          fontFamily: 'var(--font-geist-sans)'
         }}>
-          난 써봤어!
+          Triedit!
         </Link>
 
         <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-          <Link href="/reviews" style={{ fontWeight: '500', color: 'var(--text-secondary)' }}>
-            문제 해결 경험
+          <Link href={isKorean ? "/ko/reviews" : "/reviews"} style={{ fontWeight: '500', color: 'var(--text-secondary)' }}>
+            {isKorean ? '문제 해결 경험' : 'Experiences'}
           </Link>
-          <Link href="/write" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
-            경험 쓰기
+          <Link href={isKorean ? "/ko/write" : "/write"} className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
+            {isKorean ? '경험 쓰기' : 'Share Experience'}
           </Link>
-          {/* Language toggle */}
-          <Link href="/" style={{ fontWeight: '500', color: 'var(--text-secondary)' }}>
-            한국어
-          </Link>
-          <Link href="/en" style={{ fontWeight: '500', color: 'var(--text-secondary)' }}>
-            English
-          </Link>
+
+          {/* Language Toggle */}
+          <div style={{ position: 'relative' }} ref={dropdownRef}>
+            <button
+              onClick={() => setIsLangOpen(!isLangOpen)}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '0.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                color: 'var(--text-secondary)'
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </button>
+
+            {isLangOpen && (
+              <div style={{
+                position: 'absolute',
+                top: '100%',
+                right: 0,
+                marginTop: '0.5rem',
+                backgroundColor: 'var(--surface)',
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--radius-md)',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                minWidth: '120px',
+                overflow: 'hidden'
+              }}>
+                <button
+                  onClick={() => toggleLanguage('ko')}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    textAlign: 'left',
+                    padding: '0.75rem 1rem',
+                    background: isKorean ? 'var(--surface-hover)' : 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: isKorean ? 'var(--primary)' : 'var(--text-primary)',
+                    fontWeight: isKorean ? '600' : '400'
+                  }}
+                >
+                  Korean
+                </button>
+                <button
+                  onClick={() => toggleLanguage('en')}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    textAlign: 'left',
+                    padding: '0.75rem 1rem',
+                    background: !isKorean ? 'var(--surface-hover)' : 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: !isKorean ? 'var(--primary)' : 'var(--text-primary)',
+                    fontWeight: !isKorean ? '600' : '400'
+                  }}
+                >
+                  English
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

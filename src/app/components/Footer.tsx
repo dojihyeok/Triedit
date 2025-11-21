@@ -7,7 +7,7 @@ export default function Footer() {
             backgroundColor: 'var(--surface)'
         }}>
             <div className="container" style={{ textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '0.875rem' }}>
-                <p>© {new Date().getFullYear()} 난 써봤어! (Nan Sseobwasseo). All rights reserved.</p>
+                <p>© {new Date().getFullYear()} Triedit! All rights reserved.</p>
             </div>
         </footer>
     );

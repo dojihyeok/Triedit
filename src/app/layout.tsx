@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "난 써봤어! - 기업 솔루션 리뷰 플랫폼",
+  title: "Triedit! - Engineering Solution Reviews",
   description: "기업에서 사용하는 솔루션의 솔직한 경험을 공유하세요.",
 };
 
