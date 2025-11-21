@@ -207,7 +207,8 @@ export const MOCK_REQUESTS = [
         solutionName: 'Supabase',
         requestCount: 154,
         description: 'Firebase 대안으로 고려 중인데, 실제 대규모 트래픽 처리 경험이 궁금합니다.',
-        status: 'open'
+        status: 'open',
+        targetAuthor: 'Backend Dev Lee'
     },
     {
         id: 2,

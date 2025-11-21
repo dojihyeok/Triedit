@@ -131,6 +131,17 @@ export default async function ReviewDetailEnPage({ params }: { params: Promise<{
                     <h3>Detailed Review</h3>
                     <p>{review.description}</p>
                 </div>
+
+                <div style={{ marginTop: '2rem', textAlign: 'center', borderTop: '1px solid var(--border)', paddingTop: '2rem' }}>
+                    <p style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>Want to hear more from this engineer?</p>
+                    <Link
+                        href={`/requests?author=${encodeURIComponent(review.author)}`}
+                        className="btn btn-ghost"
+                        style={{ border: '1px solid var(--border)' }}
+                    >
+                        Request more from {review.author}
+                    </Link>
+                </div>
             </div>
         </div>
     );

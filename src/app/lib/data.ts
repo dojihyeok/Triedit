@@ -51,7 +51,8 @@ export function addRequest(request: any) {
         ...request,
         id: requests.length + 1,
         requestCount: 1,
-        status: 'open'
+        status: 'open',
+        targetAuthor: request.targetAuthor || null
     };
     requests.push(newRequest);
     return newRequest;

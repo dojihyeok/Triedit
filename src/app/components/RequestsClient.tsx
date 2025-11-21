@@ -1,13 +1,21 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import RequestCard from './RequestCard';
 import { submitRequest, voteForRequest } from '../actions';
 
 export default function RequestsClient({ initialRequests }: { initialRequests: any[] }) {
+    const searchParams = useSearchParams();
+    const targetAuthor = searchParams.get('author');
+
     const [requests, setRequests] = useState(initialRequests);
-    const [isFormOpen, setIsFormOpen] = useState(false);
-    const [newRequest, setNewRequest] = useState({ solutionName: '', description: '' });
+    const [isFormOpen, setIsFormOpen] = useState(!!targetAuthor);
+    const [newRequest, setNewRequest] = useState({
+        solutionName: '',
+        description: '',
+        targetAuthor: targetAuthor || ''
+    });
 
     const handleVote = async (id: number) => {
         // Optimistic update
@@ -23,8 +31,8 @@ export default function RequestsClient({ initialRequests }: { initialRequests: a
         await submitRequest(newRequest);
         alert('Request submitted!');
         setIsFormOpen(false);
-        setNewRequest({ solutionName: '', description: '' });
-        // In a real app, we'd re-fetch or receive the new item. 
+        setNewRequest({ solutionName: '', description: '', targetAuthor: '' });
+        // In a real app, we'd re-fetch or receive the new item.
         // For demo, we'll just reload or wait for revalidation (which might need a router.refresh())
         window.location.reload();
     };
@@ -48,6 +56,11 @@ export default function RequestsClient({ initialRequests }: { initialRequests: a
             {isFormOpen && (
                 <div className="card animate-fade-in" style={{ maxWidth: '600px', margin: '0 auto 3rem' }}>
                     <form onSubmit={handleSubmit}>
+                        {newRequest.targetAuthor && (
+                            <div style={{ marginBottom: '1rem', padding: '0.5rem', backgroundColor: 'var(--surface-hover)', borderRadius: '4px', color: 'var(--primary)', fontWeight: '500' }}>
+                                Requesting to: {newRequest.targetAuthor}
+                            </div>
+                        )}
                         <div style={{ marginBottom: '1rem' }}>
                             <label className="label">Solution Name</label>
                             <input

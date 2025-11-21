@@ -8,6 +8,7 @@ interface Request {
     requestCount: number;
     description: string;
     status: string;
+    targetAuthor?: string;
 }
 
 export default function RequestCard({ request, onVote }: { request: Request, onVote: (id: number) => void }) {
@@ -35,6 +36,12 @@ export default function RequestCard({ request, onVote }: { request: Request, onV
                     {request.status === 'answered' ? 'Answered' : 'Open'}
                 </span>
             </div>
+
+            {request.targetAuthor && (
+                <div style={{ marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--primary)', fontWeight: '500' }}>
+                    To: {request.targetAuthor}
+                </div>
+            )}
 
             <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', flex: 1 }}>
                 {request.description}

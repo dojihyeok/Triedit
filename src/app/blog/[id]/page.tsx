@@ -70,6 +70,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ id: s
                     <p key={index} style={{ marginBottom: '1.5rem' }}>{paragraph}</p>
                 ))}
             </div>
+
+            <div style={{ marginTop: '4rem', textAlign: 'center', borderTop: '1px solid var(--border)', paddingTop: '2rem' }}>
+                <p style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>Want to hear more from this engineer?</p>
+                <Link
+                    href={`/requests?author=${encodeURIComponent(post.author)}`}
+                    className="btn btn-ghost"
+                    style={{ border: '1px solid var(--border)' }}
+                >
+                    Request more from {post.author}
+                </Link>
+            </div>
         </div>
     );
 }

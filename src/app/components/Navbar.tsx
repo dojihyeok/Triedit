@@ -68,9 +68,6 @@ export default function Navbar() {
           <Link href="/blog" style={{ fontWeight: '500', color: 'var(--text-secondary)' }}>
             {isKorean ? '기술 블로그' : 'Tech Blog'}
           </Link>
-          <Link href="/requests" style={{ fontWeight: '500', color: 'var(--text-secondary)' }}>
-            {isKorean ? '요청' : 'Requests'}
-          </Link>
           <Link href={isKorean ? "/ko/write" : "/write"} className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
             {isKorean ? '경험 쓰기' : 'Share Experience'}
           </Link>
