@@ -1,57 +1,112 @@
+export const CATEGORIES = [
+    { id: 'all', label: '전체' },
+    { id: 'devops', label: 'DevOps' },
+    { id: 'infrastructure', label: '인프라' },
+    { id: 'development', label: '개발' },
+    { id: 'security', label: '보안' },
+    { id: 'data', label: '데이터' },
+    { id: 'productivity', label: '생산성/협업' },
+];
+
 export const MOCK_REVIEWS = [
     {
         id: 1,
         solution: 'Slack',
+        category: 'productivity',
         company: 'Tech Corp',
         rating: 4.5,
+        metrics: {
+            usability: 5,
+            efficiency: 5,
+            costPerformance: 3,
+            vendorStability: 5
+        },
         pros: '팀 커뮤니케이션의 표준. 연동성이 정말 좋아서 개발팀에게 필수적입니다.',
         cons: '무료 버전의 메시지 저장 제한이 아쉽고, 알림이 너무 많이 올 때가 있어요.',
-        description: '3년째 사용 중인데 없으면 업무가 마비될 정도입니다. 허들 기능도 자주 사용하고, 각종 봇 연동으로 업무 자동화를 많이 해두었습니다.',
+        description: '3년째 사용 중인데 없으면 업무가 마비될 정도입니다.',
+        implementationStory: '기존에는 카카오톡과 이메일을 혼용하다가, 보안과 업무 이력 관리를 위해 전사 도입했습니다. 채널 구조를 팀별, 프로젝트별로 설계하여 도입 초기 혼란을 줄였습니다.',
+        automationStory: 'GitHub, Jira, Sentry를 연동하여 알림을 중앙화했습니다. 또한, 점심 메뉴 추천 봇과 휴가 신청 봇을 직접 개발하여 연동함으로써 직원들의 만족도를 높였습니다.',
         author: '개발팀 김OO',
         date: '2024.03.15'
     },
     {
         id: 2,
         solution: 'Jira',
+        category: 'productivity',
         company: 'StartUp Inc',
         rating: 3.8,
+        metrics: {
+            usability: 3,
+            efficiency: 4,
+            costPerformance: 3,
+            vendorStability: 5
+        },
         pros: '기능은 강력하지만 무겁고 복잡합니다. 처음 적응하는데 시간이 좀 걸려요.',
         cons: 'UI가 직관적이지 않고 속도가 느릴 때가 많습니다.',
-        description: '애자일 프로세스를 돌리기에는 최적이지만, 가벼운 프로젝트에는 오버스펙인 느낌입니다. 설정할게 너무 많아요.',
+        description: '애자일 프로세스를 돌리기에는 최적이지만, 가벼운 프로젝트에는 오버스펙인 느낌입니다.',
+        implementationStory: '스프린트 단위의 업무 관리를 위해 도입했습니다. 초기에는 워크플로우가 너무 복잡해서 팀원들이 힘들어했으나, 단순화된 워크플로우로 변경 후 정착되었습니다.',
+        automationStory: 'Bitbucket과 연동하여 커밋 시 자동으로 이슈 상태가 변경되도록 설정했습니다. 또한, 스프린트 종료 시 자동으로 리포트가 생성되도록 자동화했습니다.',
         author: 'PM 이OO',
         date: '2024.03.14'
     },
     {
         id: 3,
-        solution: 'Notion',
-        company: 'Design Studio',
+        solution: 'AWS',
+        category: 'infrastructure',
+        company: 'Cloud Systems',
         rating: 4.8,
-        pros: '문서 관리와 협업을 한 곳에서 할 수 있어 너무 편리합니다. 올인원 워크스페이스!',
-        cons: '데이터베이스가 무거워지면 로딩이 느려집니다. 오프라인 모드가 아쉬워요.',
-        description: '위키, 프로젝트 관리, 회의록 등 모든 것을 노션으로 해결하고 있습니다. 템플릿 기능이 강력해서 생산성이 많이 올라갔어요.',
-        author: '디자이너 박OO',
+        metrics: {
+            usability: 4,
+            efficiency: 5,
+            costPerformance: 4,
+            vendorStability: 5
+        },
+        pros: '압도적인 서비스 종류와 안정성. 인프라 구축의 표준입니다.',
+        cons: '비용 관리가 어렵고, 서비스가 너무 많아 공부가 필요합니다.',
+        description: '스타트업부터 대기업까지 확장성을 고려한다면 최고의 선택입니다.',
+        implementationStory: '온프레미스 환경에서 전면 클라우드로 마이그레이션했습니다. 리프트 앤 시프트 방식으로 1차 이전 후, 점진적으로 클라우드 네이티브하게 리팩토링했습니다.',
+        automationStory: 'Terraform을 사용하여 모든 인프라를 코드로 관리(IaC)하고 있습니다. GitHub Actions와 연동하여 인프라 변경 사항도 자동으로 배포되도록 파이프라인을 구축했습니다.',
+        author: 'SRE 박OO',
         date: '2024.03.12'
     },
     {
         id: 4,
-        solution: 'Figma',
-        company: 'Creative Lab',
-        rating: 5.0,
-        pros: '실시간 협업 기능이 압도적입니다. 디자인 툴의 혁명.',
-        cons: '가격이 조금 비싼 편이고, 인터넷 연결이 필수입니다.',
-        description: '스케치에서 넘어왔는데 신세계입니다. 개발자 핸드오프도 편하고, 프로토타이핑도 수준급이라 별도 툴이 필요 없어요.',
-        author: 'UX 디자이너 최OO',
+        solution: 'Jenkins',
+        category: 'devops',
+        company: 'Old School Dev',
+        rating: 3.5,
+        metrics: {
+            usability: 2,
+            efficiency: 4,
+            costPerformance: 5,
+            vendorStability: 4
+        },
+        pros: '무료이고 플러그인이 많아 커스터마이징이 자유롭습니다.',
+        cons: 'UI가 구식이고 설정이 복잡합니다. 관리 포인트가 늘어납니다.',
+        description: '오랫동안 사용해온 CI/CD 도구입니다. 최근에는 GitHub Actions로 넘어가는 추세지만 여전히 강력합니다.',
+        implementationStory: '사내 구축형 서버에 설치하여 CI/CD 파이프라인을 구성했습니다. 마스터-슬레이브 구조로 빌드 부하를 분산시켰습니다.',
+        automationStory: 'Groovy 스크립트를 사용하여 복잡한 배포 로직을 자동화했습니다. 테스트 실패 시 담당자에게 슬랙 알림을 보내도록 설정했습니다.',
+        author: 'DevOps 최OO',
         date: '2024.03.10'
     },
     {
         id: 5,
-        solution: 'Zoom',
+        solution: 'Datadog',
+        category: 'devops',
         company: 'Global Biz',
-        rating: 4.0,
-        pros: '화상 회의 품질이 가장 안정적입니다. 다만 무료 버전 제한이 아쉬워요.',
-        cons: '보안 이슈가 가끔 걱정되고, 무거운 느낌이 있습니다.',
-        description: '재택근무 필수템입니다. 배경 흐림 기능이나 소음 제거 기능이 좋아서 집에서도 부담 없이 회의할 수 있어요.',
-        author: '영업팀 정OO',
+        rating: 4.7,
+        metrics: {
+            usability: 5,
+            efficiency: 5,
+            costPerformance: 2,
+            vendorStability: 5
+        },
+        pros: '시각화가 뛰어나고 통합 모니터링이 강력합니다.',
+        cons: '가격이 매우 비쌉니다. 로그 양이 많으면 비용 폭탄을 맞을 수 있습니다.',
+        description: '모니터링의 끝판왕. 돈 값은 확실히 합니다.',
+        implementationStory: '서비스 장애 감지를 위해 도입했습니다. 에이전트 설치만으로 대부분의 지표를 수집할 수 있어 도입이 매우 빨랐습니다.',
+        automationStory: '특정 에러율이 임계치를 넘으면 자동으로 PagerDuty를 통해 당직자에게 전화를 걸도록 설정하여 장애 대응 시간을 획기적으로 줄였습니다.',
+        author: 'CTO 정OO',
         date: '2024.03.08'
     }
 ];
