@@ -28,6 +28,12 @@ export const MOCK_REVIEWS = [
             costPerformance: 3,
             vendorStability: 5
         },
+        technicalMetrics: {
+            scalability: 4,
+            integration: 5,
+            documentation: 5,
+            maintainability: 5
+        },
         pros: '팀 커뮤니케이션의 표준. 연동성이 정말 좋아서 개발팀에게 필수적입니다.',
         cons: '무료 버전의 메시지 저장 제한이 아쉽고, 알림이 너무 많이 올 때가 있어요.',
         description: '3년째 사용 중인데 없으면 업무가 마비될 정도입니다.',
@@ -37,7 +43,7 @@ export const MOCK_REVIEWS = [
         coffeeChatAvailable: true,
         contactLink: 'https://open.kakao.com/o/example',
         author: '개발팀 김OO',
-        date: '2024.03.15'
+        date: '2025.03.15'
     },
     {
         id: 2,
@@ -52,6 +58,12 @@ export const MOCK_REVIEWS = [
             costPerformance: 3,
             vendorStability: 5
         },
+        technicalMetrics: {
+            scalability: 5,
+            integration: 4,
+            documentation: 4,
+            maintainability: 3
+        },
         pros: '기능은 강력하지만 무겁고 복잡합니다. 처음 적응하는데 시간이 좀 걸려요.',
         cons: 'UI가 직관적이지 않고 속도가 느릴 때가 많습니다.',
         description: '애자일 프로세스를 돌리기에는 최적이지만, 가벼운 프로젝트에는 오버스펙인 느낌입니다.',
@@ -60,7 +72,7 @@ export const MOCK_REVIEWS = [
         automationStory: 'Bitbucket과 연동하여 커밋 시 자동으로 이슈 상태가 변경되도록 설정했습니다. 또한, 스프린트 종료 시 자동으로 리포트가 생성되도록 자동화했습니다.',
         coffeeChatAvailable: false,
         author: 'PM 이OO',
-        date: '2024.03.14'
+        date: '2025.03.14'
     },
     {
         id: 3,
@@ -75,6 +87,12 @@ export const MOCK_REVIEWS = [
             costPerformance: 4,
             vendorStability: 5
         },
+        technicalMetrics: {
+            scalability: 5,
+            integration: 5,
+            documentation: 5,
+            maintainability: 4
+        },
         pros: '압도적인 서비스 종류와 안정성. 인프라 구축의 표준입니다.',
         cons: '비용 관리가 어렵고, 서비스가 너무 많아 공부가 필요합니다.',
         description: '스타트업부터 대기업까지 확장성을 고려한다면 최고의 선택입니다.',
@@ -84,7 +102,7 @@ export const MOCK_REVIEWS = [
         coffeeChatAvailable: true,
         contactLink: 'mailto:sre@example.com',
         author: 'SRE 박OO',
-        date: '2024.03.12'
+        date: '2025.03.12'
     },
     {
         id: 4,
@@ -99,6 +117,12 @@ export const MOCK_REVIEWS = [
             costPerformance: 5,
             vendorStability: 4
         },
+        technicalMetrics: {
+            scalability: 3,
+            integration: 4,
+            documentation: 3,
+            maintainability: 2
+        },
         pros: '무료이고 플러그인이 많아 커스터마이징이 자유롭습니다.',
         cons: 'UI가 구식이고 설정이 복잡합니다. 관리 포인트가 늘어납니다.',
         description: '오랫동안 사용해온 CI/CD 도구입니다. 최근에는 GitHub Actions로 넘어가는 추세지만 여전히 강력합니다.',
@@ -108,7 +132,7 @@ export const MOCK_REVIEWS = [
         coffeeChatAvailable: true,
         contactLink: 'https://open.kakao.com/o/jenkins_expert',
         author: 'DevOps 최OO',
-        date: '2024.03.10'
+        date: '2025.03.10'
     },
     {
         id: 5,
@@ -123,6 +147,12 @@ export const MOCK_REVIEWS = [
             costPerformance: 2,
             vendorStability: 5
         },
+        technicalMetrics: {
+            scalability: 5,
+            integration: 5,
+            documentation: 5,
+            maintainability: 5
+        },
         pros: '시각화가 뛰어나고 통합 모니터링이 강력합니다.',
         cons: '가격이 매우 비쌉니다. 로그 양이 많으면 비용 폭탄을 맞을 수 있습니다.',
         description: '모니터링의 끝판왕. 돈 값은 확실히 합니다.',
@@ -131,6 +161,6 @@ export const MOCK_REVIEWS = [
         automationStory: '특정 에러율이 임계치를 넘으면 자동으로 PagerDuty를 통해 당직자에게 전화를 걸도록 설정하여 장애 대응 시간을 획기적으로 줄였습니다.',
         coffeeChatAvailable: false,
         author: 'CTO 정OO',
-        date: '2024.03.08'
+        date: '2025.03.08'
     }
 ];

@@ -17,6 +17,12 @@ export default function WritePage() {
             costPerformance: 3,
             vendorStability: 3
         },
+        technicalMetrics: {
+            scalability: 3,
+            integration: 3,
+            documentation: 3,
+            maintainability: 3
+        },
         pros: '',
         cons: '',
         description: '',
@@ -48,6 +54,17 @@ export default function WritePage() {
         }));
     };
 
+    const handleTechnicalMetricChange = (metric: string, value: string) => {
+        setFormData(prev => ({
+            ...prev,
+            technicalMetrics: {
+                // @ts-ignore
+                ...prev.technicalMetrics,
+                [metric]: parseInt(value)
+            }
+        }));
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log('Form Submitted:', formData);
@@ -57,7 +74,7 @@ export default function WritePage() {
 
     return (
         <div className="container animate-fade-in" style={{ padding: '4rem 0', maxWidth: '800px' }}>
-            <h1 style={{ marginBottom: '2rem', textAlign: 'center' }}>솔루션 경험 공유하기</h1>
+            <h1 style={{ marginBottom: '2rem', textAlign: 'center' }}>문제 해결 경험 공유하기</h1>
 
             <form onSubmit={handleSubmit} className="card">
                 {/* Basic Info */}
@@ -143,9 +160,47 @@ export default function WritePage() {
                     </div>
                 </div>
 
+                {/* Technical Evaluation (New) */}
+                <div style={{ marginBottom: '2rem', padding: '1.5rem', backgroundColor: '#1e293b', borderRadius: 'var(--radius-md)', border: '1px solid #334155' }}>
+                    <h3 style={{ marginBottom: '1rem', color: '#a78bfa' }}>📊 기술 평가 (Technical Evaluation)</h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                        {[
+                            { id: 'scalability', label: '확장성 (Scalability)' },
+                            { id: 'integration', label: '연동성 (Integration)' },
+                            { id: 'documentation', label: '문서화 (Documentation)' },
+                            { id: 'maintainability', label: '유지보수성 (Maintainability)' }
+                        ].map((metric) => (
+                            <div key={metric.id}>
+                                <label className="label" style={{ display: 'flex', justifyContent: 'space-between', color: '#e2e8f0' }}>
+                                    {metric.label}
+                                    <span style={{ color: '#a78bfa', fontWeight: 'bold' }}>
+                                        {/* @ts-ignore */}
+                                        {formData.technicalMetrics?.[metric.id] || 3}점
+                                    </span>
+                                </label>
+                                <input
+                                    type="range"
+                                    min="1"
+                                    max="5"
+                                    value={
+                                        // @ts-ignore
+                                        formData.technicalMetrics?.[metric.id] || 3
+                                    }
+                                    onChange={(e) => handleTechnicalMetricChange(metric.id, e.target.value)}
+                                    style={{ width: '100%', accentColor: '#a78bfa' }}
+                                />
+                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#94a3b8' }}>
+                                    <span>나쁨</span>
+                                    <span>좋음</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
                 {/* Detailed Evaluation */}
                 <div style={{ marginBottom: '2rem', padding: '1.5rem', backgroundColor: 'var(--surface-hover)', borderRadius: 'var(--radius-md)' }}>
-                    <h3 style={{ marginBottom: '1rem' }}>상세 평가 (1-5점)</h3>
+                    <h3 style={{ marginBottom: '1rem' }}>비즈니스 평가 (Business Evaluation)</h3>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                         {[
                             { id: 'usability', label: '사용자 편의성' },

@@ -17,13 +17,13 @@ export default function ReviewsPage() {
 
     return (
         <div className="container animate-fade-in" style={{ padding: '4rem 0' }}>
-            <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
-                <h1 style={{ marginBottom: '1rem' }}>솔루션 경험 둘러보기</h1>
-                <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
-                    다른 기업들은 어떤 솔루션을 어떻게 쓰고 있을까요?
+            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>문제 해결 경험 둘러보기</h1>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
+                    다른 엔지니어들은 어떻게 문제를 해결했는지 확인해보세요.
                 </p>
 
-                <div style={{ maxWidth: '500px', margin: '0 auto' }}>
+                <div style={{ maxWidth: '500px', margin: '2rem auto 0' }}>
                     <input
                         type="text"
                         placeholder="솔루션 이름이나 내용으로 검색해보세요"

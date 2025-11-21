@@ -107,9 +107,43 @@ export default async function ReviewDetailPage({ params }: { params: Promise<{ i
                     </div>
                 )}
 
-                {/* Advanced Metrics */}
+                {/* Technical Evaluation Report (New) */}
+                <div style={{ marginBottom: '3rem', padding: '2rem', backgroundColor: '#1e293b', borderRadius: 'var(--radius-md)', border: '1px solid #334155' }}>
+                    <h3 style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#a78bfa' }}>
+                        📊 기술 평가 리포트 (Technical Report)
+                    </h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                        {[
+                            { id: 'scalability', label: '확장성 (Scalability)' },
+                            { id: 'integration', label: '연동성 (Integration)' },
+                            { id: 'documentation', label: '문서화 (Documentation)' },
+                            { id: 'maintainability', label: '유지보수성 (Maintainability)' }
+                        ].map((metric) => (
+                            <div key={metric.id}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                    <span style={{ fontWeight: '500', color: '#e2e8f0' }}>{metric.label}</span>
+                                    <span style={{ color: '#a78bfa', fontWeight: 'bold' }}>
+                                        {/* @ts-ignore */}
+                                        {review.technicalMetrics?.[metric.id] || '-'}점
+                                    </span>
+                                </div>
+                                <div style={{ width: '100%', height: '8px', backgroundColor: '#334155', borderRadius: '4px', overflow: 'hidden' }}>
+                                    <div style={{
+                                        height: '100%',
+                                        // @ts-ignore
+                                        width: `${(review.technicalMetrics?.[metric.id] || 0) * 20}%`,
+                                        backgroundColor: '#a78bfa',
+                                        transition: 'width 0.5s ease-out'
+                                    }} />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Basic Metrics */}
                 <div style={{ marginBottom: '3rem', padding: '1.5rem', backgroundColor: 'var(--surface-hover)', borderRadius: 'var(--radius-md)' }}>
-                    <h3 style={{ marginBottom: '1.5rem' }}>상세 평가</h3>
+                    <h3 style={{ marginBottom: '1.5rem' }}>비즈니스 평가</h3>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
                         {[
                             { id: 'usability', label: '사용자 편의성' },
