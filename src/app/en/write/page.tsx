@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CATEGORIES, COMPANY_SIZES } from '../../data/mock';

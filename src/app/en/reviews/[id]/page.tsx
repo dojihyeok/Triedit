@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MOCK_REVIEWS, CATEGORIES, COMPANY_SIZES } from '../../../../data/mock';
+import { MOCK_REVIEWS, CATEGORIES, COMPANY_SIZES } from '../../../data/mock';
 
 export function generateStaticParams() {
     return MOCK_REVIEWS.map((review) => ({ id: review.id.toString() }));
@@ -92,6 +92,7 @@ export default async function ReviewDetailEnPage({ params }: { params: Promise<{
                         {['scalability', 'integration', 'documentation', 'maintainability'].map((key) => (
                             <div key={key}>
                                 <span style={{ color: '#e2e8f0' }}>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                                {/* @ts-ignore */}
                                 <div style={{ fontWeight: 'bold', color: '#a78bfa' }}>{review.technicalMetrics?.[key] ?? '-'} pts</div>
                             </div>
                         ))}
@@ -105,6 +106,7 @@ export default async function ReviewDetailEnPage({ params }: { params: Promise<{
                         {['usability', 'efficiency', 'costPerformance', 'vendorStability'].map((key) => (
                             <div key={key}>
                                 <span>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                                {/* @ts-ignore */}
                                 <div style={{ fontWeight: 'bold', color: 'var(--primary)' }}>{review.metrics?.[key] ?? '-'} pts</div>
                             </div>
                         ))}
