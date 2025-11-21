@@ -89,7 +89,7 @@ export default async function ReviewDetailEnPage({ params }: { params: Promise<{
                 {/* Technical Evaluation */}
                 <div style={{ marginBottom: '2rem', padding: '2rem', backgroundColor: '#1e293b', borderRadius: 'var(--radius-md)', border: '1px solid #334155' }}>
                     <h3 style={{ marginBottom: '1rem', color: '#a78bfa' }}>Technical Evaluation</h3>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div className="grid-2-cols" style={{ gap: '1rem' }}>
                         {['scalability', 'integration', 'documentation', 'maintainability'].map((key) => (
                             <div key={key}>
                                 <span style={{ color: '#e2e8f0' }}>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
@@ -103,7 +103,7 @@ export default async function ReviewDetailEnPage({ params }: { params: Promise<{
                 {/* Business Evaluation */}
                 <div style={{ marginBottom: '2rem', padding: '1.5rem', backgroundColor: 'var(--surface-hover)', borderRadius: 'var(--radius-md)' }}>
                     <h3 style={{ marginBottom: '1rem' }}>Business Evaluation</h3>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div className="grid-2-cols" style={{ gap: '1rem' }}>
                         {['usability', 'efficiency', 'costPerformance', 'vendorStability'].map((key) => (
                             <div key={key}>
                                 <span>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
@@ -115,7 +115,7 @@ export default async function ReviewDetailEnPage({ params }: { params: Promise<{
                 </div>
 
                 {/* Pros & Cons */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
+                <div className="grid-2-cols" style={{ gap: '1rem', marginBottom: '2rem' }}>
                     <div>
                         <h4 style={{ color: '#4ade80' }}>Pros</h4>
                         <p>{review.pros}</p>
