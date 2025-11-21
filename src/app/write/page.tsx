@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CATEGORIES, COMPANY_SIZES } from '../data/mock';
+import { submitReview } from '../actions';
 
 export default function WritePageEn() {
     const router = useRouter();
@@ -62,10 +63,11 @@ export default function WritePageEn() {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log('Form Submitted:', formData);
-        alert('Experience submitted! (demo)');
+        await submitReview(formData);
+        alert('Experience submitted! (Saved to memory)');
         router.push('/reviews');
     };
 

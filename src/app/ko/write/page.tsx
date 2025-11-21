@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CATEGORIES, COMPANY_SIZES } from '../../data/mock';
+import { submitReview } from '../../actions';
 
 export default function WritePage() {
     const router = useRouter();
@@ -65,10 +66,11 @@ export default function WritePage() {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log('Form Submitted:', formData);
-        alert('경험이 등록되었습니다! (데모)');
+        await submitReview(formData);
+        alert('경험이 등록되었습니다! (메모리에 저장됨)');
         router.push('/ko/reviews');
     };
 

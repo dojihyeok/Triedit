@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MOCK_REVIEWS } from "../data/mock";
+import { getReviews } from "../lib/data";
 
 // @ts-ignore // suppress any type warnings for MOCK_REVIEWS mapping
 
@@ -73,7 +73,7 @@ export default function Home() {
             gap: '1.5rem'
           }}>
             {/* Mock Data Cards */}
-            {MOCK_REVIEWS.slice(0, 5).map((review) => (
+            {getReviews().slice(0, 5).map((review) => (
               <div key={review.id} className="card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.5rem' }}>
                   <h3 style={{ fontSize: '1.1rem' }}>{review.solution}</h3>
