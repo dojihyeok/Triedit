@@ -164,3 +164,63 @@ export const MOCK_REVIEWS = [
         date: '2025.03.08'
     }
 ];
+
+export const MOCK_BLOG_POSTS = [
+    {
+        id: 1,
+        title: 'MSA 환경에서 트랜잭션 관리하기',
+        summary: 'Saga 패턴을 이용한 분산 트랜잭션 처리 경험을 공유합니다.',
+        content: 'https://medium.com/@example/msa-transaction',
+        type: 'external',
+        author: 'Backend Dev Lee',
+        date: '2025.03.18',
+        likes: 42,
+        thumbnail: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80'
+    },
+    {
+        id: 2,
+        title: 'Next.js 15 도입기: 서버 액션의 명과 암',
+        summary: '프로덕션 레벨에서 서버 액션을 사용하며 겪은 트러블슈팅 로그.',
+        content: 'Next.js 15가 릴리즈되면서 가장 기대했던 기능은 Server Actions였습니다...',
+        type: 'internal',
+        author: 'Frontend Dev Kim',
+        date: '2025.03.15',
+        likes: 128,
+        thumbnail: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80'
+    },
+    {
+        id: 3,
+        title: '쿠버네티스 비용 50% 절감한 이야기',
+        summary: 'Spot Instance와 Autoscaling 최적화 전략.',
+        content: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        type: 'youtube',
+        author: 'DevOps Park',
+        date: '2025.03.10',
+        likes: 256,
+        thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg'
+    }
+];
+
+export const MOCK_REQUESTS = [
+    {
+        id: 1,
+        solutionName: 'Supabase',
+        requestCount: 154,
+        description: 'Firebase 대안으로 고려 중인데, 실제 대규모 트래픽 처리 경험이 궁금합니다.',
+        status: 'open'
+    },
+    {
+        id: 2,
+        solutionName: 'Linear',
+        requestCount: 89,
+        description: 'Jira에서 Linear로 마이그레이션 하신 분들의 후기가 필요해요.',
+        status: 'open'
+    },
+    {
+        id: 3,
+        solutionName: 'Vercel',
+        requestCount: 230,
+        description: 'Enterprise 플랜 비용 효율성이 궁금합니다.',
+        status: 'answered'
+    }
+];
