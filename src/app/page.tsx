@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MOCK_REVIEWS } from "./data/mock";
+
+// @ts-ignore // suppress any type warnings for MOCK_REVIEWS mapping
 
 export default function Home() {
   return (
@@ -34,29 +37,26 @@ export default function Home() {
       {/* Features Section */}
       <section style={{ padding: '4rem 0', backgroundColor: 'var(--surface)' }}>
         <div className="container">
-          <div className="grid" style={{ gap: '2rem' }}>
-            <div className="card animate-fade-in" style={{ textAlign: 'center', padding: '2rem' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎯</div>
-              <h3 style={{ marginBottom: '1rem' }}>깊이 있는 문제 정의</h3>
-              <p style={{ color: 'var(--text-secondary)' }}>
-                어떤 상황에서 어떤 문제가 발생했나요?<br />
-                명확한 문제 정의는 해결책의 가치를 높여줍니다.
+          <div className="grid" style={{ gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
+            <div className="card animate-fade-in" style={{ textAlign: 'center', padding: '1rem' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🎯</div>
+              <h3 style={{ marginBottom: '0.5rem', fontSize: '1.25rem' }}>깊이 있는 문제 정의</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                문제 정의가 명확할수록 해결책의 가치는 높아집니다.
               </p>
             </div>
-            <div className="card animate-fade-in" style={{ textAlign: 'center', padding: '2rem', animationDelay: '0.1s' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🛠️</div>
-              <h3 style={{ marginBottom: '1rem' }}>검증된 해결책</h3>
-              <p style={{ color: 'var(--text-secondary)' }}>
-                직접 구축하고 운영하며 얻은<br />
+            <div className="card animate-fade-in" style={{ textAlign: 'center', padding: '1rem', animationDelay: '0.1s' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🛠️</div>
+              <h3 style={{ marginBottom: '0.5rem', fontSize: '1.25rem' }}>검증된 해결책</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
                 실전 노하우와 자동화 사례를 공유합니다.
               </p>
             </div>
-            <div className="card animate-fade-in" style={{ textAlign: 'center', padding: '2rem', animationDelay: '0.2s' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🤝</div>
-              <h3 style={{ marginBottom: '1rem' }}>가치 있는 네트워킹</h3>
-              <p style={{ color: 'var(--text-secondary)' }}>
-                비슷한 고민을 하는 엔지니어들과 연결되고<br />
-                새로운 기회를 발견하세요.
+            <div className="card animate-fade-in" style={{ textAlign: 'center', padding: '1rem', animationDelay: '0.2s' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🤝</div>
+              <h3 style={{ marginBottom: '0.5rem', fontSize: '1.25rem' }}>가치 있는 네트워킹</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                엔지니어와 연결하고 새로운 기회를 발견하세요.
               </p>
             </div>
           </div>
@@ -69,28 +69,28 @@ export default function Home() {
           <h2 style={{ marginBottom: '2rem', textAlign: 'center' }}>최근 올라온 경험</h2>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: '2rem'
+            gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+            gap: '1.5rem'
           }}>
             {/* Mock Data Cards */}
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
-                  <h3 style={{ fontSize: '1.25rem' }}>Slack</h3>
+            {MOCK_REVIEWS.slice(0, 5).map((review) => (
+              <div key={review.id} className="card">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.5rem' }}>
+                  <h3 style={{ fontSize: '1.1rem' }}>{review.solution}</h3>
                   <span style={{
                     backgroundColor: 'var(--surface-hover)',
-                    padding: '0.25rem 0.5rem',
+                    padding: '0.2rem 0.4rem',
                     borderRadius: 'var(--radius-sm)',
-                    fontSize: '0.875rem',
+                    fontSize: '0.8rem',
                     fontWeight: '600'
-                  }}>⭐️ 4.5</span>
+                  }}>⭐️ {review.rating}</span>
                 </div>
-                <p style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>
-                  "팀 커뮤니케이션의 표준. 연동성이 정말 좋아서 개발팀에게 필수적입니다."
+                <p style={{ marginBottom: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
+                  {review.pros}
                 </p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.875rem', color: 'var(--text-tertiary)' }}>
-                  <span>개발팀 김OO님</span>
-                  <span>2025.03.15</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>
+                  <span>{review.author}</span>
+                  <span>{review.date}</span>
                 </div>
               </div>
             ))}

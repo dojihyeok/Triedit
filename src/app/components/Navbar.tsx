@@ -31,6 +31,13 @@ export default function Navbar() {
           <Link href="/write" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
             경험 쓰기
           </Link>
+          {/* Language toggle */}
+          <Link href="/" style={{ fontWeight: '500', color: 'var(--text-secondary)' }}>
+            한국어
+          </Link>
+          <Link href="/en" style={{ fontWeight: '500', color: 'var(--text-secondary)' }}>
+            English
+          </Link>
         </div>
       </div>
     </nav>
