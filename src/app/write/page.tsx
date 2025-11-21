@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { CATEGORIES } from '../data/mock';
+import { CATEGORIES, COMPANY_SIZES } from '../data/mock';
 
 export default function WritePage() {
     const router = useRouter();
     const [formData, setFormData] = useState({
         solutionName: '',
         company: '',
+        companySize: 'startup',
         category: 'productivity',
         metrics: {
             usability: 3,
@@ -19,13 +20,22 @@ export default function WritePage() {
         pros: '',
         cons: '',
         description: '',
+        problemContext: '',
         implementationStory: '',
-        automationStory: ''
+        automationStory: '',
+        coffeeChatAvailable: false,
+        contactLink: ''
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const { name, value, type } = e.target;
+        // @ts-ignore
+        const checked = e.target.checked;
+
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
     };
 
     const handleMetricChange = (metric: string, value: string) => {
@@ -83,16 +93,52 @@ export default function WritePage() {
                         />
                     </div>
 
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
+                        <div>
+                            <label htmlFor="company" className="label">사용 회사 (선택)</label>
+                            <input
+                                type="text"
+                                id="company"
+                                name="company"
+                                value={formData.company}
+                                onChange={handleChange}
+                                className="input"
+                                placeholder="예: 삼성전자, 스타트업"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="companySize" className="label">기업 규모 *</label>
+                            <select
+                                id="companySize"
+                                name="companySize"
+                                value={formData.companySize}
+                                onChange={handleChange}
+                                className="input"
+                                required
+                            >
+                                {COMPANY_SIZES.map(s => (
+                                    <option key={s.id} value={s.id}>{s.label}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Problem Context (New) */}
+                <div style={{ marginBottom: '2rem', padding: '1.5rem', backgroundColor: 'rgba(239, 68, 68, 0.05)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(239, 68, 68, 0.1)' }}>
+                    <h3 style={{ marginBottom: '1rem', color: '#f87171' }}>🚨 문제 정의 (Problem)</h3>
                     <div style={{ marginBottom: '1.5rem' }}>
-                        <label htmlFor="company" className="label">사용 회사 (선택)</label>
-                        <input
-                            type="text"
-                            id="company"
-                            name="company"
-                            value={formData.company}
+                        <label htmlFor="problemContext" className="label">어떤 문제를 해결하려고 했나요? *</label>
+                        <textarea
+                            id="problemContext"
+                            name="problemContext"
+                            value={formData.problemContext}
                             onChange={handleChange}
                             className="input"
-                            placeholder="예: 삼성전자, 스타트업"
+                            rows={3}
+                            placeholder="예: 트래픽 폭주로 인한 서버 다운, 수동 배포의 비효율성 등"
+                            required
+                            style={{ resize: 'vertical' }}
                         />
                     </div>
                 </div>
@@ -173,7 +219,7 @@ export default function WritePage() {
                 <div style={{ marginBottom: '2rem' }}>
                     <h3 style={{ marginBottom: '1rem' }}>심층 경험 공유</h3>
                     <div style={{ marginBottom: '1.5rem' }}>
-                        <label htmlFor="implementationStory" className="label">구축 경험 (선택)</label>
+                        <label htmlFor="implementationStory" className="label">🛠️ 해결 과정 (Solution)</label>
                         <textarea
                             id="implementationStory"
                             name="implementationStory"
@@ -187,7 +233,7 @@ export default function WritePage() {
                     </div>
 
                     <div style={{ marginBottom: '1.5rem' }}>
-                        <label htmlFor="automationStory" className="label">자동화/활용 사례 (선택)</label>
+                        <label htmlFor="automationStory" className="label">📈 결과 및 자동화 (Result)</label>
                         <textarea
                             id="automationStory"
                             name="automationStory"
@@ -213,6 +259,43 @@ export default function WritePage() {
                             style={{ resize: 'vertical' }}
                         />
                     </div>
+                </div>
+
+                {/* Networking (Coffee Chat) */}
+                <div style={{ marginBottom: '2rem', padding: '1.5rem', backgroundColor: 'var(--surface-hover)', borderRadius: 'var(--radius-md)', border: '1px solid var(--primary)' }}>
+                    <h3 style={{ marginBottom: '1rem' }}>☕️ 네트워킹</h3>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+                        <input
+                            type="checkbox"
+                            id="coffeeChatAvailable"
+                            name="coffeeChatAvailable"
+                            checked={formData.coffeeChatAvailable}
+                            onChange={handleChange}
+                            style={{ width: '20px', height: '20px', marginRight: '0.5rem', accentColor: 'var(--primary)' }}
+                        />
+                        <label htmlFor="coffeeChatAvailable" style={{ fontSize: '1rem', fontWeight: '500' }}>
+                            이 경험에 대해 커피챗 요청을 받으시겠습니까?
+                        </label>
+                    </div>
+
+                    {formData.coffeeChatAvailable && (
+                        <div className="animate-fade-in">
+                            <label htmlFor="contactLink" className="label">연락처 링크 (오픈카톡, 이메일 등) *</label>
+                            <input
+                                type="text"
+                                id="contactLink"
+                                name="contactLink"
+                                value={formData.contactLink}
+                                onChange={handleChange}
+                                className="input"
+                                placeholder="예: https://open.kakao.com/..."
+                                required={formData.coffeeChatAvailable}
+                            />
+                            <p style={{ fontSize: '0.8rem', color: 'var(--text-tertiary)', marginTop: '0.5rem' }}>
+                                * 연락처는 로그인한 사용자에게만 공개됩니다. (현재 데모 버전에서는 모두에게 공개됨)
+                            </p>
+                        </div>
+                    )}
                 </div>
 
                 <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MOCK_REVIEWS, CATEGORIES } from '../../data/mock';
+import { MOCK_REVIEWS, CATEGORIES, COMPANY_SIZES } from '../../data/mock';
 
 export function generateStaticParams() {
     return MOCK_REVIEWS.map((review) => ({
@@ -23,6 +23,8 @@ export default async function ReviewDetailPage({ params }: { params: Promise<{ i
     }
 
     const categoryLabel = CATEGORIES.find(c => c.id === review.category)?.label;
+    // @ts-ignore
+    const companySizeLabel = COMPANY_SIZES.find(s => s.id === review.companySize)?.label;
 
     return (
         <div className="container animate-fade-in" style={{ padding: '4rem 0', maxWidth: '800px' }}>
@@ -30,18 +32,35 @@ export default async function ReviewDetailPage({ params }: { params: Promise<{ i
                 ← 목록으로 돌아가기
             </Link>
 
-            <div className="card">
+            <div className="card" style={{ marginBottom: '2rem' }}>
+                {/* Header */}
                 <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: '2rem', marginBottom: '2rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
                         <div>
-                            <div style={{
-                                fontSize: '0.875rem',
-                                color: 'var(--primary)',
-                                fontWeight: '600',
-                                marginBottom: '0.5rem',
-                                textTransform: 'uppercase'
-                            }}>
-                                {categoryLabel}
+                            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                                <span style={{
+                                    fontSize: '0.75rem',
+                                    color: 'var(--primary)',
+                                    fontWeight: '600',
+                                    textTransform: 'uppercase',
+                                    backgroundColor: 'var(--surface-hover)',
+                                    padding: '0.25rem 0.5rem',
+                                    borderRadius: '4px'
+                                }}>
+                                    {categoryLabel}
+                                </span>
+                                {companySizeLabel && (
+                                    <span style={{
+                                        fontSize: '0.75rem',
+                                        color: 'var(--text-secondary)',
+                                        fontWeight: '600',
+                                        backgroundColor: 'var(--surface-hover)',
+                                        padding: '0.25rem 0.5rem',
+                                        borderRadius: '4px'
+                                    }}>
+                                        {companySizeLabel}
+                                    </span>
+                                )}
                             </div>
                             <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{review.solution}</h1>
                             <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)' }}>{review.company}</p>
@@ -53,11 +72,40 @@ export default async function ReviewDetailPage({ params }: { params: Promise<{ i
                         </div>
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-tertiary)', fontSize: '0.9rem' }}>
-                        <span>작성자: {review.author}</span>
-                        <span>작성일: {review.date}</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-tertiary)', fontSize: '0.9rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                            <span>작성자: {review.author}</span>
+                            <span>작성일: {review.date}</span>
+                        </div>
+                        {/* @ts-ignore */}
+                        {review.coffeeChatAvailable && (
+                            <a
+                                // @ts-ignore
+                                href={review.contactLink || '#'}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn btn-primary"
+                                style={{ fontSize: '0.9rem', padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                            >
+                                ☕️ 커피챗 요청하기
+                            </a>
+                        )}
                     </div>
                 </div>
+
+                {/* Problem Context (New) */}
+                {/* @ts-ignore */}
+                {review.problemContext && (
+                    <div style={{ marginBottom: '3rem', padding: '1.5rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                        <h3 style={{ marginBottom: '1rem', color: '#f87171', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            🚨 직면했던 문제 (Problem)
+                        </h3>
+                        <p style={{ lineHeight: '1.7' }}>
+                            {/* @ts-ignore */}
+                            {review.problemContext}
+                        </p>
+                    </div>
+                )}
 
                 {/* Advanced Metrics */}
                 <div style={{ marginBottom: '3rem', padding: '1.5rem', backgroundColor: 'var(--surface-hover)', borderRadius: 'var(--radius-md)' }}>
@@ -91,26 +139,14 @@ export default async function ReviewDetailPage({ params }: { params: Promise<{ i
                     </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '3rem' }}>
-                    <div>
-                        <h3 style={{ color: '#4ade80', marginBottom: '1rem' }}>장점</h3>
-                        <p style={{ lineHeight: '1.6' }}>{review.pros}</p>
-                    </div>
-                    <div>
-                        <h3 style={{ color: '#f87171', marginBottom: '1rem' }}>단점</h3>
-                        <p style={{ lineHeight: '1.6' }}>{review.cons}</p>
-                    </div>
-                </div>
-
                 {/* Detailed Stories */}
                 {(review.implementationStory || review.automationStory) && (
-                    <div style={{ marginBottom: '3rem', borderTop: '1px solid var(--border)', paddingTop: '2rem' }}>
-                        <h2 style={{ marginBottom: '2rem' }}>심층 경험 공유</h2>
+                    <div style={{ marginBottom: '3rem' }}>
 
                         {review.implementationStory && (
                             <div style={{ marginBottom: '2rem' }}>
-                                <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    🛠️ 구축 경험
+                                <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#60a5fa' }}>
+                                    🛠️ 해결 과정 (Solution)
                                 </h3>
                                 <div style={{ padding: '1.5rem', backgroundColor: 'var(--surface-hover)', borderRadius: 'var(--radius-md)', lineHeight: '1.7' }}>
                                     {review.implementationStory}
@@ -120,8 +156,8 @@ export default async function ReviewDetailPage({ params }: { params: Promise<{ i
 
                         {review.automationStory && (
                             <div>
-                                <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    🤖 자동화/활용 사례
+                                <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#4ade80' }}>
+                                    📈 결과 및 자동화 (Result)
                                 </h3>
                                 <div style={{ padding: '1.5rem', backgroundColor: 'var(--surface-hover)', borderRadius: 'var(--radius-md)', lineHeight: '1.7' }}>
                                     {review.automationStory}
@@ -130,6 +166,17 @@ export default async function ReviewDetailPage({ params }: { params: Promise<{ i
                         )}
                     </div>
                 )}
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '3rem', borderTop: '1px solid var(--border)', paddingTop: '2rem' }}>
+                    <div>
+                        <h3 style={{ color: '#4ade80', marginBottom: '1rem' }}>장점</h3>
+                        <p style={{ lineHeight: '1.6' }}>{review.pros}</p>
+                    </div>
+                    <div>
+                        <h3 style={{ color: '#f87171', marginBottom: '1rem' }}>단점</h3>
+                        <p style={{ lineHeight: '1.6' }}>{review.cons}</p>
+                    </div>
+                </div>
 
                 <div>
                     <h3 style={{ marginBottom: '1rem' }}>상세 후기</h3>
