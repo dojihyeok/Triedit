@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
 import { getBlogPosts } from '../../lib/data';
 
 export function generateStaticParams() {
@@ -65,10 +66,34 @@ export default async function BlogPostPage({ params }: { params: Promise<{ id: s
             </div>
 
             <div className="markdown-body" style={{ fontSize: '1.125rem', lineHeight: 1.8, color: 'var(--text-secondary)' }}>
-                {/* In a real app, we would render Markdown here. For demo, just text. */}
-                {post.content.split('\n').map((paragraph, index) => (
-                    <p key={index} style={{ marginBottom: '1.5rem' }}>{paragraph}</p>
-                ))}
+                <ReactMarkdown
+                    components={{
+                        h1: ({ node, ...props }) => <h1 style={{ fontSize: '2rem', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }} {...props} />,
+                        h2: ({ node, ...props }) => <h2 style={{ fontSize: '1.5rem', marginTop: '1.5rem', marginBottom: '1rem', color: 'var(--text-primary)' }} {...props} />,
+                        h3: ({ node, ...props }) => <h3 style={{ fontSize: '1.25rem', marginTop: '1.5rem', marginBottom: '1rem', color: 'var(--text-primary)' }} {...props} />,
+                        p: ({ node, ...props }) => <p style={{ marginBottom: '1.5rem' }} {...props} />,
+                        ul: ({ node, ...props }) => <ul style={{ marginBottom: '1.5rem', paddingLeft: '1.5rem' }} {...props} />,
+                        ol: ({ node, ...props }) => <ol style={{ marginBottom: '1.5rem', paddingLeft: '1.5rem' }} {...props} />,
+                        li: ({ node, ...props }) => <li style={{ marginBottom: '0.5rem' }} {...props} />,
+                        blockquote: ({ node, ...props }) => <blockquote style={{ borderLeft: '4px solid var(--primary)', paddingLeft: '1rem', marginLeft: 0, marginBottom: '1.5rem', color: 'var(--text-tertiary)' }} {...props} />,
+                        code: ({ node, className, children, ...props }: any) => {
+                            const match = /language-(\w+)/.exec(className || '')
+                            return !match ? (
+                                <code style={{ backgroundColor: 'var(--surface-hover)', padding: '0.2rem 0.4rem', borderRadius: '4px', fontSize: '0.9em' }} {...props}>
+                                    {children}
+                                </code>
+                            ) : (
+                                <pre style={{ backgroundColor: '#1e293b', padding: '1rem', borderRadius: '8px', overflowX: 'auto', marginBottom: '1.5rem' }}>
+                                    <code className={className} style={{ color: '#e2e8f0' }} {...props}>
+                                        {children}
+                                    </code>
+                                </pre>
+                            )
+                        }
+                    }}
+                >
+                    {post.content}
+                </ReactMarkdown>
             </div>
 
             <div style={{ marginTop: '4rem', textAlign: 'center', borderTop: '1px solid var(--border)', paddingTop: '2rem' }}>

@@ -2,7 +2,15 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { addBlogPost } from '../../lib/data';
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
+
+const MDEditor = dynamic(
+    () => import("@uiw/react-md-editor"),
+    { ssr: false }
+);
 
 export default function BlogWritePage() {
     const router = useRouter();
@@ -72,7 +80,14 @@ export default function BlogWritePage() {
                         {formData.type === 'internal' ? 'Content' : 'URL'}
                     </label>
                     {formData.type === 'internal' ? (
-                        <textarea name="content" value={formData.content} onChange={handleChange} className="input" rows={10} placeholder="Write your article here..." required />
+                        <div data-color-mode="light">
+                            <MDEditor
+                                value={formData.content}
+                                onChange={(val) => setFormData(prev => ({ ...prev, content: val || '' }))}
+                                height={400}
+                                style={{ whiteSpace: 'pre-wrap' }}
+                            />
+                        </div>
                     ) : (
                         <input type="url" name="content" value={formData.content} onChange={handleChange} className="input" placeholder={formData.type === 'youtube' ? "https://youtube.com/watch?v=..." : "https://notion.so/..."} required />
                     )}
