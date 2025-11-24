@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 export async function submitReview(formData: any) {
     // In a real app, validate formData here (e.g. using Zod)
 
-    addReview(formData);
+    await addReview(formData);
 
     // Revalidate pages to show new data
     revalidatePath('/');
@@ -21,19 +21,19 @@ export async function submitReview(formData: any) {
 }
 
 export async function submitBlogPost(formData: any) {
-    addBlogPost(formData);
+    await addBlogPost(formData);
     revalidatePath('/blog');
     return { success: true };
 }
 
 export async function submitRequest(formData: any) {
-    addRequest(formData);
+    await addRequest(formData);
     revalidatePath('/requests');
     return { success: true };
 }
 
 export async function voteForRequest(id: number) {
-    voteRequest(id);
+    await voteRequest(id);
     revalidatePath('/requests');
     return { success: true };
 }

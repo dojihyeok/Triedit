@@ -2,13 +2,16 @@ import Link from 'next/link';
 import { getReviews, getReview } from '../../lib/data';
 import { CATEGORIES, COMPANY_SIZES } from '../../data/mock';
 
-export function generateStaticParams() {
-    return getReviews().map((review) => ({ id: review.id.toString() }));
+export async function generateStaticParams() {
+    const reviews = await getReviews();
+    return reviews.map((review) => ({
+        id: review.id.toString(),
+    }));
 }
 
-export default async function ReviewDetailEnPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function ReviewDetail({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    const review = getReview(parseInt(id));
+    const review = await getReview(parseInt(id));
 
     if (!review) {
         return (

@@ -4,8 +4,8 @@ import BlogCard from '../components/BlogCard';
 
 export const dynamic = 'force-dynamic';
 
-export default function BlogPage() {
-    const posts = getBlogPosts();
+export default async function BlogPage() {
+    const posts = await getBlogPosts();
 
     return (
         <div className="container animate-fade-in" style={{ padding: '4rem 0' }}>
@@ -25,7 +25,7 @@ export default function BlogPage() {
                 gap: '2rem'
             }}>
                 {posts.map((post) => (
-                    <BlogCard key={post.id} post={post} />
+                    <BlogCard key={post.id} post={{ ...post, thumbnail: post.thumbnail || undefined }} />
                 ))}
             </div>
         </div>

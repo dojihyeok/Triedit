@@ -3,15 +3,16 @@ import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import { getBlogPosts } from '../../lib/data';
 
-export function generateStaticParams() {
-    return getBlogPosts().map((post) => ({
+export async function generateStaticParams() {
+    const posts = await getBlogPosts();
+    return posts.map((post) => ({
         id: post.id.toString(),
     }));
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    const posts = getBlogPosts();
+    const posts = await getBlogPosts();
     const post = posts.find((p) => p.id === parseInt(id));
 
     if (!post) {

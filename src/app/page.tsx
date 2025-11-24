@@ -1,8 +1,11 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import { getReviews } from "./lib/data";
 
-export default function HomeEn() {
+export default async function Home() {
+    const reviews = await getReviews();
+    const recentReviews = reviews.slice(0, 5);
     return (
         <div className="animate-fade-in">
             {/* Hero Section */}
@@ -69,7 +72,7 @@ export default function HomeEn() {
                         gap: '1.5rem'
                     }}>
                         {/* Mock Data Cards */}
-                        {getReviews().slice(0, 5).map((review) => (
+                        {recentReviews.map((review) => (
                             <div key={review.id} className="card">
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.5rem' }}>
                                     <h3 style={{ fontSize: '1.1rem' }}>{review.solution}</h3>

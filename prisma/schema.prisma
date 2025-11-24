@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Review {
+  id              Int      @id @default(autoincrement())
+  solution        String
+  category        String
+  company         String
+  companySize     String
+  rating          Float
+  pros            String   @db.Text
+  cons            String   @db.Text
+  description     String   @db.Text
+  problemContext  String?  @db.Text
+  implementationStory String? @db.Text
+  automationStory String? @db.Text
+  technicalMetrics Json?
+  businessMetrics  Json?
+  author          String
+  date            String
+  contactLink     String?
+  coffeeChatAvailable Boolean @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model BlogPost {
+  id        Int      @id @default(autoincrement())
+  title     String
+  summary   String   @db.Text
+  content   String   @db.Text
+  type      String   // internal, external, youtube
+  author    String
+  date      String
+  likes     Int      @default(0)
+  thumbnail String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Request {
+  id           Int      @id @default(autoincrement())
+  solutionName String
+  requestCount Int      @default(1)
+  description  String   @db.Text
+  status       String   @default("open") // open, answered
+  targetAuthor String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
